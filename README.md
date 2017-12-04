@@ -15,17 +15,17 @@ Solution:
 
 Files:
 ------
-- main_umg.tf  -- Main Terraform File
-- vars.tf      -- Variables
-- userdata.sh  -- Shell script that's used to install docker on AMI
+1. main_umg.tf  -- Main Terraform File
+2. vars.tf      -- Variables
+3. userdata.sh  -- Shell script that's used to install docker on AMI
 
 Pre-Requisites:
 ---------------
 
 Login to Amazon Console and create IAM Credentials:
 
-  -- User Access Key and Secret Key
-  -- Create a key pair with name "umgKey".
+  1. User Access Key and Secret Key & 
+  2. Create a key pair with name "umgKey".
 
 Description:
 ------------
