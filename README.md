@@ -58,3 +58,10 @@ How to run:
  
  Because the Load Balancer Health Check is failed the primary AWS instance that's created is terminated after every timeout minutes.
  Due to lack of time I couldn't troubleshoot the same.
+ 
+ Fix for the above Issue:
+ ------------------------
+ 
+After troubleshooting the code figured out that the right security group is not assigned to the instance and instead the "default" security group is assigned.
+
+Fixed this by assigning the right security group in launch configuration. This Security Group has the ingress rules added for port 80 so the health check is passed.
