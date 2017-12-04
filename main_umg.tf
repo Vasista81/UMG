@@ -42,7 +42,7 @@ resource "aws_launch_configuration" "as_conf" {
   image_id      = "${data.aws_ami.ubuntu.id}"
   security_groups = ["${aws_security_group.instance.id}"]
   instance_type = "t2.micro"
-  key_name = "umgKey"
+  key_name = "${var.aws_key_name}"
 
   # Run a remote provisioner on the instance after creating it.
   # In this case, we just install Docker and start it. 
@@ -107,7 +107,7 @@ resource "aws_security_group" "elb" {
 resource "aws_security_group" "instance" {
   name = "umg-example-instance"
 
-  # Inbound HTTP from anywhere
+  # Inbound SSH from anywhere
   ingress {
     from_port   = 22
     to_port     = 22
@@ -119,6 +119,14 @@ resource "aws_security_group" "instance" {
   ingress {
     from_port   = 5432
     to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  
+  # Inbound HTTP from anywhere - Health Check
+  ingress {
+    from_port   = 80
+    to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -136,7 +144,6 @@ resource "aws_security_group" "instance" {
     create_before_destroy = true
   }
 }
-
 
 ##########################################################
 # AWS Elastic Load Balancer for the distributing the load
@@ -175,10 +182,10 @@ resource "aws_db_instance" "umgdb" {
   instance_class           = "db.t2.micro"
   multi_az                 = false
   name                     = "umgdb"
+  username                 = "umgdb"
   password                 = "Umgdb123"
   port                     = 5432
   publicly_accessible      = true
   storage_type             = "gp2"
-  username                 = "umgdb"
   vpc_security_group_ids   = ["${aws_security_group.instance.id}"]
 }
