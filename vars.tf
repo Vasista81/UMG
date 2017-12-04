@@ -22,6 +22,11 @@ variable "aws_secret_key" {
   default     = "<SECRET_KEY>"
 }
 
+# Variable to store Key Pair name
+variable "aws_key_name" {
+  description = "The AWS Key Pair"
+  default     = "umgKey"
+}
 
 
 
