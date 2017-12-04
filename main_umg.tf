@@ -187,5 +187,6 @@ resource "aws_db_instance" "umgdb" {
   port                     = 5432
   publicly_accessible      = true
   storage_type             = "gp2"
+  skip_final_snapshot      = true
   vpc_security_group_ids   = ["${aws_security_group.instance.id}"]
 }
