@@ -4,5 +4,5 @@ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubun
 apt-get update -y
 apt-cache policy docker-ce python-minimal python-pip
 sudo apt-get install -y docker-ce python-minimal python-pip
+sudo apt-get install -y nginx > /tmp/nginx.log
 pip install docker-py
-
